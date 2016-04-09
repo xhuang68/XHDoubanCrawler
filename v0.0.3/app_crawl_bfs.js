@@ -6,24 +6,27 @@ var mkdirp = require('mkdirp');
 /* URL seed - how to select seed */
 var seedURL = [
         // 'http://movie.douban.com/subject/3008892/', /* 无效测试页面 */
-        'http://movie.douban.com/subject/1291832/', /* 低俗小说 Pulp Fiction (1994) */
-        'http://movie.douban.com/subject/1292233/',  /* 发条橙 A Clockwork Orange (1971) */
-        'http://movie.douban.com/subject/1296987/',  /* 安妮·霍尔 Annie Hall (1977) */
-        'http://movie.douban.com/subject/1780330/', /* 致命魔术 The Prestige (2006) */
-        'http://movie.douban.com/subject/1303173/',  /* 甲方乙方 (1997) */
-        'http://movie.douban.com/subject/1291875/', /* 阳光灿烂的日子 (1994) */
-        'http://movie.douban.com/subject/1292365/', /* 活着 (1994) */
-        'http://movie.douban.com/subject/1292434/', /* 一一 (2000) */
-        'http://movie.douban.com/subject/1293374/', /* 热天午后 Dog Day Afternoon (1975) */
-        'http://movie.douban.com/subject/21937445/', /* 辩护人 변호인 (2013) */
-        'http://movie.douban.com/subject/1305690/', /* 阿飞正传 阿飛正傳 (1990) */
-        'http://movie.douban.com/subject/10537853/', /* 万箭穿心 (2012) */
+        // 'http://movie.douban.com/subject/1291832/', /* 低俗小说 Pulp Fiction (1994) */
+        // 'http://movie.douban.com/subject/1292233/',  /* 发条橙 A Clockwork Orange (1971) */
+        // 'http://movie.douban.com/subject/1296987/',  /* 安妮·霍尔 Annie Hall (1977) */
+        // 'http://movie.douban.com/subject/1780330/', /* 致命魔术 The Prestige (2006) */
+        // 'http://movie.douban.com/subject/1303173/',  /* 甲方乙方 (1997) */
+        // 'http://movie.douban.com/subject/1291875/', /* 阳光灿烂的日子 (1994) */
+        // 'http://movie.douban.com/subject/1292365/', /* 活着 (1994) */
+        // 'http://movie.douban.com/subject/1292434/', /* 一一 (2000) */
+        // 'http://movie.douban.com/subject/1293374/', /* 热天午后 Dog Day Afternoon (1975) */
+        // 'http://movie.douban.com/subject/21937445/', /* 辩护人 변호인 (2013) */
+        // 'http://movie.douban.com/subject/1305690/', /* 阿飞正传 阿飛正傳 (1990) */
+        // 'http://movie.douban.com/subject/10537853/', /* 万箭穿心 (2012) */
+        'https://movie.douban.com/subject/1307014/',
+        'http://movie.douban.com/subject/1303173/'
+
     ];
 var processNum = seedURL.length;
 var processingExit = false;
 var requestOK = true;
 var appSetting = {
-    requireMovieNumber: 50,  /* maximum crawled page number */
+    requireMovieNumber: 10,  /* maximum crawled page number */
     fileNames: {
         urlCrawledFileName: '#CrawledMovieID.txt',  /* save every url crawled */
         urlFoundFileName: '#FoundMovieID.txt',  /* save every url found during the process */
@@ -246,6 +249,10 @@ fs.stat(appSetting.fileNames.pageFolderName, function(err, stats) {
 var startProcess = function () {
   fs.stat(appSetting.fileNames.urlFoundFileName, function(err, stats) {
     if (!stats) {
+      seedURL.forEach(function(url) {
+        var number = Helper.getNumbersOfUrl(url);
+        urlDict[number] = true;
+      })
       seedURL.forEach(function(url, index) {
         fs.appendFile(appSetting.fileNames.urlFoundFileName, Helper.getNumbersOfUrl(url) + '\r\n', function (err) {
             if (err) throw err;
