@@ -32,7 +32,7 @@ var SortType = {
 var appSetting = {
     requireMovieNumber: 2000,  /* maximum crawled page number */
     requireMovieRating: 8.0,
-    sortType: SortType.byDirector,
+    sortType: SortType.byRating,
     fileNames: {
         urlCrawledFileName: '#CrawledMovieID.txt',  /* save every url crawled */
         urlFoundFileName: '#FoundMovieID.txt',  /* save every url found during the process */

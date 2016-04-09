@@ -14,8 +14,9 @@
 *	**request**: 网络请求库
 *	**cheerio**: 服务器端的 JQuery
 *	**heap**: javascript 堆实现
-*	**pinyin**: 汉字拼音处理(排序用)
+*	**pinyin**: 汉字拼音处理(排序用)，此依赖很大，建议按需安装
 *	**mkdirp**: node.js 新建文件夹模块
+*	`v0.0.1` 和 `v0.0.2` 中没有安装依赖，请自行安装
 
 ## Environment
 ```

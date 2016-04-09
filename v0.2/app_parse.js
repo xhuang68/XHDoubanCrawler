@@ -12,7 +12,7 @@ var SortType = {
 }
 var appSetting = {
     // requireMovieRating: 8.0,
-    sortType: SortType.byDirector,
+    sortType: SortType.byRating,
     fileNames: {
         movieInfoMarkdownFileName: '#MOVIES.md',
         movieInfoTextFileName: '#MOVIES.txt',

@@ -33,16 +33,16 @@ var urlData = {
     urlRequiredCount: 0
 };
 var moviesInfo = new Heap(function(a, b) {
-    // return a.rating - b.rating;
+    return a.rating - b.rating;
     // director pinyin order
-    var cmp = pinyin(a.director, { style: pinyin.STYLE_NORMAL})[0][0] < pinyin(b.director, { style: pinyin.STYLE_NORMAL})[0][0];
-    if (cmp) {
-      return -1;
-    }
-    if (!cmp) {
-      return 1;
-    }
-    return 0;
+    // var cmp = pinyin(a.director, { style: pinyin.STYLE_NORMAL})[0][0] < pinyin(b.director, { style: pinyin.STYLE_NORMAL})[0][0];
+    // if (cmp) {
+    //   return -1;
+    // }
+    // if (!cmp) {
+    //   return 1;
+    // }
+    // return 0;
 });
 
 var processingOutput = false;
