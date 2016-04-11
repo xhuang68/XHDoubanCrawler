@@ -20,11 +20,12 @@ var seedURL = [
         'http://movie.douban.com/subject/10537853/', /* 万箭穿心 (2012) */
 
     ];
-var processNum = seedURL.length;
+var processNum = 2;//seedURL.length;
+var minProcessNum = 0;
 var processingExit = false;
 var requestOK = true;
 var appSetting = {
-    requireMovieNumber: 10,  /* maximum crawled page number */
+    requireMovieNumber: 50000,  /* maximum crawled page number */
     fileNames: {
         urlCrawledFileName: '#CrawledMovieID.txt',  /* save every url crawled */
         urlFoundFileName: '#FoundMovieID.txt',  /* save every url found during the process */
@@ -91,7 +92,7 @@ Helper.return = function(urlQueue, taskId) {
     } else {
       processNum--;
       console.log('此并发没有新的网页可以抓取...');
-      if (processNum <= 3) {
+      if (processNum <= minProcessNum) {
         processingExit = true;
         Helper.exitCrawler();
       }

@@ -3,7 +3,6 @@ var cheerio = require('cheerio');
 
 /* URL seed - how to select seed */
 var appSetting = {
-    requireMovieRating: 8.0,
     fileNames: {
         movieInfoJSONFileName: '#MOVIESJSON.txt',
         pageFolderName: '#PAGES'
@@ -64,21 +63,19 @@ Helper.processNextPage = function() {
 
       // parse requirement
       var rating = parseFloat($('.rating_self strong').text());
-      if (rating >= appSetting.requireMovieRating) {
-        var name = $($('h1 span')[0]).text() ? $($('h1 span')[0]).text() : 'Unknown';
-        var year = /(\d+)/.exec($($('h1 span')[1]).text()) ? /(\d+)/.exec($($('h1 span')[1]).text())[0] : 'Unknown';
-        var director = $($('#info span')[2]).text() ? $($('#info span')[2]).text() : 'Unknown';
-        var movieInfo = {
-          name: name,
-          year: year,
-          director: director,
-          rating: rating,
-          url: 'https://movie.douban.com/subject/' + fileName.split('.')[0]
-        }
-        // add to heap and change total count
-        allMovieInfo.push(movieInfo);
-        requiredNumber++;
+      var name = $($('h1 span')[0]).text() ? $($('h1 span')[0]).text() : 'Unknown';
+      var year = /(\d+)/.exec($($('h1 span')[1]).text()) ? /(\d+)/.exec($($('h1 span')[1]).text())[0] : 'Unknown';
+      var director = $($('#info span')[2]).text() ? $($('#info span')[2]).text() : 'Unknown';
+      var movieInfo = {
+        name: name,
+        year: year,
+        director: director,
+        rating: rating,
+        url: 'https://movie.douban.com/subject/' + fileName.split('.')[0]
       }
+      // add to heap and change total count
+      allMovieInfo.push(movieInfo);
+      requiredNumber++;
 
       console.log('已处理有效页面数 = ' + processedValidNumber);
       console.log('符合要求页面数 = ' + requiredNumber);
