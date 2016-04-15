@@ -14,7 +14,8 @@ var appSetting = {
     fileNames: {
         movieInfoMarkdownFileName: '#MOVIES.md',
         movieInfoTextFileName: '#MOVIES.txt',
-        movieInfoJSONFileName: '#MOVIESJSON.txt'
+        movieInfoJSONFileName: '#MOVIESJSON.txt',
+        movieInfoSortedJSONFileName: '#MOVIESSORTEDJSON.txt'
     },
     description: 'rating: >= 8.0'
 };
@@ -70,6 +71,7 @@ Helper.output = function(){
     console.log('成功读取待处理对象，正在打印结果...');
     console.log();
 
+    var allMovieInfoSortedJSON = [];
     var count = allMovieInfo.nodes.length;
     var textString = 'application: xh-douban-crawler\r\nauthor: xiaohuang\r\ntotal: ' +
                        count +
@@ -86,6 +88,7 @@ Helper.output = function(){
 
     while (allMovieInfo.nodes.length > 0) {
       var movieInfo = allMovieInfo.pop();
+      allMovieInfoSortedJSON.push(movieInfo);
       markdownString += 'Movie&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**' + movieInfo.name + '**&nbsp;&nbsp;<br/>' +
             'Year&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**' + movieInfo.year + '**&nbsp;&nbsp;<br/>' +
             'Director&nbsp;&nbsp;&nbsp;**' + movieInfo.director + '**&nbsp;&nbsp;<br/>' +
@@ -94,15 +97,18 @@ Helper.output = function(){
             '<br/><br/>';
       textString += movieInfo.name + '   ' + movieInfo.year + '   ' + movieInfo.director + '   ' + movieInfo.rating + '   ' + movieInfo.url + '\n';
     }
-
     fs.writeFile(appSetting.fileNames.movieInfoMarkdownFileName, markdownString, 'utf8', function (err) {
       if (err) throw err;
       fs.writeFile(appSetting.fileNames.movieInfoTextFileName, textString, 'utf8', function (err) {
         if (err) throw err;
+        allMovieInfoSortedJSONContent = JSON.stringify(allMovieInfoSortedJSON);
+        fs.writeFile(appSetting.fileNames.movieInfoSortedJSONFileName, allMovieInfoSortedJSONContent, 'utf8', function (err) {
+          if (err) throw err;
         Helper.exitCrawler();
-      })
+      });
     })
-  };
+  })
+};
 
 /* helper function to exit process */
 Helper.exitCrawler = function(){
